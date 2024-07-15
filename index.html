@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManishaTravels - Register</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-logo">
+            <a href="index.html">
+                <img src="img/logo.png" alt="Company Logo">
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li class="link"><a href="#">Home <i class='bx bx-home'></i></a></li>
+            <li id="link1" class="link"><a href="#">Pricing <i class='bx bx-money-withdraw'></i></a></li>
+            <li id="link2" class="link"><a href="#">Tour <i class='bx bx-bus'></i></a></li>
+            <li id="link3" class="link"><a href="#">Images <i class='bx bx-image'></i></a></li>
+            <li id="link4" class="link"><a href="#">About <i class='bx bx-info-circle'></i></a></li>
+        </ul>
+        <button class="btn" onclick="location.href='#'">Back <i class='bx bx-log-in-circle' style='color:#ffffff'></i></button>
+    </nav>
+    
+    <div class="box">
+        <div class="form">
+            <h2>Register</h2>
+            <form>
+                <div class="inputbox">
+                    <input type="text" id="username" required>
+                    <span>Username</span>
+                </div>
+                <div class="inputbox">
+                    <input type="email" id="email" required>
+                    <span>E-mail</span>
+                </div>
+                <div class="inputbox">
+                    <input type="text" id="phone" required>
+                    <span>Phone Number</span>
+                </div>
+                <input type="submit" value="Submit" class="sub" id="submit">
+            </form>
+        </div>
+    </div>
+
+    <footer class="container">
+        <div class="column">
+            <div class="logo">
+                <img src="img/logo.png" alt="Logo">
+            </div>
+            <p>
+                Owner of The Company is Denish .J. shah. and Co-Owner and Website Admin is Deep .D. shah.
+            </p>
+            <div class="socials">
+                <a href="https://www.youtube.com/@WhatsYour_IP"><i class='bx bxl-youtube'></i></a>
+                <a href="https://discord.gg/7MNmSKuK7A"><i class='bx bxl-discord-alt'></i></a>
+                <a href="tour.html"><i class='bx bx-bus'></i></i></a>
+            </div>
+        </div>
+        <div class="column">
+            <h4>Company</h4>
+            <a href="#">Business</a>
+            <a href="#">Partnership</a>
+            <a href="#">Network</a>
+        </div>
+        <div class="column">
+            <h4>About Us</h4>
+            <a href="#">Blogs</a>
+            <a href="#">Channels</a>
+            <a href="#">Sponsors</a>
+        </div>
+        <div class="column">
+            <h4>Contact</h4>
+            <a href="#">Contact Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+    </footer>
+
+    <div class="copyright">
+        Copyright © 2024 Manisha Travels PVT. All Rights Reserved.
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAAsBKOT2Ma2cyMoXE0GlL2XbLr_28hUGc",
+            authDomain: "mt-com-db.firebaseapp.com",
+            projectId: "mt-com-db",
+            storageBucket: "mt-com-db.appspot.com",
+            messagingSenderId: "788780700811",
+            appId: "1:788780700811:web:19e4f8ce61c2ff7f10f08e",
+            measurementId: "G-VLNKQ2NT2J"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById("submit").addEventListener('click', async function(e){
+            e.preventDefault();
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+
+            if (!username || !email || !phone) {
+                alert("All fields are required!");
+                return;
+            }
+
+            try {
+                await setDoc(doc(db, "users", username), {
+                    username: username,
+                    email: email,
+                    PhoneNumber: phone
+                });
+                alert("Registration Successful!");
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                alert("Error: Registration failed! " + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
